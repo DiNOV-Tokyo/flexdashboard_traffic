@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Traffic"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
@@ -7,40 +7,13 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+
 library(flexdashboard)
 library(leaflet)
 library(curl)
 library(tidyverse)
 
 ```
-
-Row
------------------------------------------------------------------------
-
-### Number of Bus Stop {.value-box}
-
-```{r}
-
-valueBox(value = 100, 
-         caption = "Total number of Bus Stop available", 
-         #icon = "fas fa-user-md", 
-         color = "red")
-```
-
-### Number_Bus {.value-box}
-
-```{r}
-
-valueBox(value = 500000, 
-         caption = "Total number of BUS available", 
-         #icon = "fas fa-user-md", 
-         color = "blue")
-```
-
-Row {.tabset}
------------------------------------------------------------------------
-
-### Map
 
 ```{r, include=FALSE}
 
@@ -53,6 +26,38 @@ jsonlite::prettify(rawToChar(req$content))
 busstop.data.json <- jsonlite::fromJSON(jsonlite::prettify(rawToChar(req$content)))
 
 ```
+
+
+
+Row
+-----------------------------------------------------------------------
+
+### Number of Bus Stop {.value-box}
+
+```{r}
+
+valueBox(value = as.numeric(nrow(bus.data.json)), 
+         caption = "Total number of Bus available", 
+         #icon = "fas fa-user-md", 
+         color = "skyblue")
+
+```
+
+### Number_Bus {.value-box}
+
+```{r}
+
+valueBox(value = as.numeric(nrow(busstop.data.json)), 
+         caption = "Total number of Bus Stop", 
+         #icon = "fas fa-user-md", 
+         color = "blue")
+
+```
+
+Row {.tabset}
+-----------------------------------------------------------------------
+
+### Map
 
 
 ```{r}
