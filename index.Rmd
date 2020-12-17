@@ -50,14 +50,14 @@ valueBox(value = as.numeric(nrow(bus.data.json)),
 valueBox(value = as.numeric(nrow(busstop.data.json)), 
          caption = "Total number of Bus Stop", 
          #icon = "fas fa-user-md", 
-         color = "blue")
+         color = "red")
 
 ```
 
 Row {.tabset}
 -----------------------------------------------------------------------
 
-### Map
+### Seibu Bus Map
 
 
 ```{r}
@@ -69,3 +69,40 @@ leaflet(bus.data.json) %>%
 
 
 ```
+
+### Nishi Tokyo Bus Map
+
+```{r, include=FALSE}
+
+req <- curl_fetch_memory("https://api.odpt.org/api/v4/odpt:BusstopPole?odpt:operator=odpt.Operator:NishiTokyoBus&acl:consumerKey=c1f315c808022db68eb65b5221764083a2964e2da068ecff8f944c233afe96b7")
+jsonlite::prettify(rawToChar(req$content))
+busstop.data.json <- jsonlite::fromJSON(jsonlite::prettify(rawToChar(req$content)))
+
+```
+
+```{r}
+
+leaflet(busstop.data.json) %>% 
+  addTiles() %>% 
+  addCircles(lat = busstop.data.json$`geo:lat`, lng = busstop.data.json$`geo:long`, color="red")
+
+```
+
+### Tokyu Bus Map
+
+```{r, include=FALSE}
+
+req <- curl_fetch_memory("https://api.odpt.org/api/v4/odpt:BusstopPole?odpt:operator=odpt.Operator:TokyuBus&acl:consumerKey=c1f315c808022db68eb65b5221764083a2964e2da068ecff8f944c233afe96b7")
+jsonlite::prettify(rawToChar(req$content))
+busstop.data.json <- jsonlite::fromJSON(jsonlite::prettify(rawToChar(req$content)))
+
+```
+
+```{r}
+
+leaflet(busstop.data.json) %>% 
+  addTiles() %>% 
+  addCircles(lat = busstop.data.json$`geo:lat`, lng = busstop.data.json$`geo:long`, color="red")
+
+```
+
