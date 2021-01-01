@@ -41,6 +41,7 @@ valueBox(value = as.numeric(nrow(bus.data.json)),
          #icon = "fas fa-user-md", 
          color = "skyblue")
 
+
 ```
 
 ### Number_Bus {.value-box}
