@@ -67,7 +67,6 @@ leaflet(bus.data.json) %>%
   addMarkers(lat = ~`geo:lat`, lng = ~`geo:long`) %>% 
   addCircles(lat = busstop.data.json$`geo:lat`, lng = busstop.data.json$`geo:long`, color="red")
 
-
 ```
 
 ### Nishi Tokyo Bus Map
